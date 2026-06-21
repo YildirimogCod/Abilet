@@ -2,10 +2,11 @@ package org.yildirimog.abilet.category.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.SQLRestriction;
 import org.yildirimog.abilet.common.entity.BaseEntity;
 
-
 @Entity
+@SQLRestriction("deleted_at IS NULL")
 @Getter @Setter
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,12 +17,9 @@ public class Category extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true,nullable = false)
+    @Column(nullable = false)
     private String name;
 
+    @Column(nullable = false)
     private String description;
-
-
-
-
 }
