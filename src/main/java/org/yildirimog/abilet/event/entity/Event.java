@@ -5,7 +5,6 @@ import lombok.*;
 import org.yildirimog.abilet.category.entity.Category;
 import org.yildirimog.abilet.common.entity.BaseEntity;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -33,10 +32,10 @@ public class Event extends BaseEntity {
     private Boolean active;
 
     @Column(nullable = false)
-    private LocalDate startDate;
+    private LocalDateTime startDate;
 
     @Column(nullable = false)
-    private LocalDate endDate;
+    private LocalDateTime endDate;
 
     private String eventRules;
 
@@ -46,7 +45,11 @@ public class Event extends BaseEntity {
     @Column(nullable = false)
     private Integer availableSeat;
 
+    @Version
+    private Long version;
+
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(nullable = false)
     private Category category;
 
 
