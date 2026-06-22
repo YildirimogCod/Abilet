@@ -2,6 +2,7 @@ package org.yildirimog.abilet.user.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.SQLRestriction;
 import org.yildirimog.abilet.common.entity.BaseEntity;
 import org.yildirimog.abilet.user.enums.Role;
 
@@ -10,6 +11,7 @@ import java.time.Period;
 
 @Entity
 @Table(name = "users")
+@SQLRestriction("deleted_at IS NULL")
 @Getter
 @Setter
 @AllArgsConstructor
