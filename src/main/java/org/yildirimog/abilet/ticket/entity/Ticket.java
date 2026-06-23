@@ -2,6 +2,8 @@ package org.yildirimog.abilet.ticket.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.SQLRestriction;
 import org.yildirimog.abilet.common.entity.BaseEntity;
 import org.yildirimog.abilet.event.entity.Event;
 import org.yildirimog.abilet.ticket.enums.TicketStatus;
@@ -11,16 +13,14 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "tickets")
+@SQLRestriction("deleted_at IS NULL")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-@EqualsAndHashCode(of = "id")
+@SuperBuilder
 public class Ticket extends BaseEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(nullable = false)
@@ -30,7 +30,7 @@ public class Ticket extends BaseEntity {
     @JoinColumn(nullable = false)
     private Event event;
 
-    @Column(nullable = false)
+    @Column(nullable = false, precision = 12, scale = 2)
     private BigDecimal price;
 
     private String seatNo;

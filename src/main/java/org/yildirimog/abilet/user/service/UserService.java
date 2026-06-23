@@ -1,13 +1,13 @@
 package org.yildirimog.abilet.user.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.yildirimog.abilet.user.dto.UserResponseDto;
 import org.yildirimog.abilet.user.dto.UserUpdateDto;
-
-import java.util.List;
 
 public interface UserService {
     UserResponseDto getById(Long id);
     UserResponseDto update(Long id, UserUpdateDto userUpdateDto);
-    List<UserResponseDto> getAllUsers();
+    Page<UserResponseDto> getAllUsers(Pageable pageable);
     void delete(Long id);
 }

@@ -2,6 +2,8 @@ package org.yildirimog.abilet.user.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.yildirimog.abilet.user.dto.UserResponseDto;
@@ -13,7 +15,6 @@ import org.yildirimog.abilet.user.repository.UserRepository;
 import org.yildirimog.abilet.user.service.UserService;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 
 @Service
@@ -28,24 +29,22 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserResponseDto getById(Long id) {
         User user = userRepository.findById(id).orElseThrow(()->new UserNotFoundException(id));
-        return userMapper.userToUserResponseDto(user);
+        return userMapper.toDto(user);
     }
 
     @Transactional
     @Override
     public UserResponseDto update(Long id, UserUpdateDto userUpdateDto) {
         User user = userRepository.findById(id).orElseThrow(()->new UserNotFoundException(id));
-        userMapper.updateUserFromDto(user, userUpdateDto);
-        return userMapper.userToUserResponseDto(user);
+        userMapper.updateEntity(user, userUpdateDto);
+        return userMapper.toDto(user);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<UserResponseDto> getAllUsers() {
-       return userRepository.findAll()
-               .stream()
-               .map((userMapper::userToUserResponseDto))
-               .toList();
+    public Page<UserResponseDto> getAllUsers(Pageable pageable) {
+       return userRepository.findAll(pageable)
+               .map(userMapper::toDto);
     }
 
 

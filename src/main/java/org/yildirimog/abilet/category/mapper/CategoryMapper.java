@@ -1,31 +1,19 @@
 package org.yildirimog.abilet.category.mapper;
 
-import org.springframework.stereotype.Component;
+import org.mapstruct.Mapper;
+import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 import org.yildirimog.abilet.category.dto.CategoryRequestDto;
 import org.yildirimog.abilet.category.dto.CategoryResponseDto;
 import org.yildirimog.abilet.category.dto.CategoryUpdateDto;
 import org.yildirimog.abilet.category.entity.Category;
 
-@Component
-public class CategoryMapper {
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
+public interface CategoryMapper {
 
-    public Category toEntity(CategoryRequestDto dto) {
-        return Category.builder()
-                .name(dto.name())
-                .description(dto.description())
-                .build();
-    }
+    Category toEntity(CategoryRequestDto dto);
 
-    public CategoryResponseDto toDto(Category category) {
-        return new CategoryResponseDto(
-                category.getId(),
-                category.getName(),
-                category.getDescription()
-        );
-    }
+    CategoryResponseDto toDto(Category category);
 
-    public void updateEntity(CategoryUpdateDto dto, Category category) {
-        category.setName(dto.name());
-        category.setDescription(dto.description());
-    }
+    void updateEntity(CategoryUpdateDto dto, @MappingTarget Category category);
 }

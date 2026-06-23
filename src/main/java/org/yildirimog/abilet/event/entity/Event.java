@@ -2,27 +2,27 @@ package org.yildirimog.abilet.event.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.SQLRestriction;
 import org.yildirimog.abilet.category.entity.Category;
 import org.yildirimog.abilet.common.entity.BaseEntity;
 
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "events")
+@SQLRestriction("deleted_at IS NULL")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-@EqualsAndHashCode(of = "id")
+@SuperBuilder
 public class Event extends BaseEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 2000)
     private String description;
 
     @Column(nullable = false)
@@ -37,6 +37,7 @@ public class Event extends BaseEntity {
     @Column(nullable = false)
     private LocalDateTime endDate;
 
+    @Column(length = 2000)
     private String eventRules;
 
     @Column(nullable = false)
