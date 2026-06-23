@@ -2,6 +2,8 @@ package org.yildirimog.abilet.category.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.yildirimog.abilet.category.dto.CategoryRequestDto;
@@ -15,7 +17,6 @@ import org.yildirimog.abilet.category.repository.CategoryRepository;
 import org.yildirimog.abilet.category.service.CategoryService;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Slf4j
 @Service
@@ -51,11 +52,9 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<CategoryResponseDto> getAll() {
-        return categoryRepository.findAll()
-                .stream()
-                .map(categoryMapper::toDto)
-                .toList();
+    public Page<CategoryResponseDto> getAll(Pageable pageable) {
+        return categoryRepository.findAll(pageable)
+                .map(categoryMapper::toDto);
     }
 
     @Override
