@@ -3,6 +3,7 @@ package org.yildirimog.abilet.auth.service.impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.yildirimog.abilet.auth.dto.AuthResponse;
 import org.yildirimog.abilet.auth.dto.LoginRequest;
 import org.yildirimog.abilet.auth.dto.RegisterRequest;
@@ -22,6 +23,7 @@ public class AuthServiceImpl implements AuthService {
     private final UserMapper userMapper;
 
     @Override
+    @Transactional
     public AuthResponse register(RegisterRequest registerRequest) {
         if (userRepository.existsByEmail(registerRequest.email())) {
             throw new UserAlreadyExistException(registerRequest.email());

@@ -6,6 +6,7 @@ import org.hibernate.annotations.SQLRestriction;
 import org.yildirimog.abilet.common.entity.BaseEntity;
 
 @Entity
+@Table(name = "categories")
 @SQLRestriction("deleted_at IS NULL")
 @Getter @Setter
 @AllArgsConstructor

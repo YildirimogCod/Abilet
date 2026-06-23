@@ -2,12 +2,14 @@ package org.yildirimog.abilet.comment.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.SQLRestriction;
 import org.yildirimog.abilet.common.entity.BaseEntity;
 import org.yildirimog.abilet.event.entity.Event;
 import org.yildirimog.abilet.user.entity.User;
 
 @Entity
 @Table(name = "comments")
+@SQLRestriction("deleted_at IS NULL")
 @Getter
 @Setter
 @AllArgsConstructor

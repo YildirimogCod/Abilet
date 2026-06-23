@@ -32,7 +32,9 @@ public class User extends BaseEntity {
     @Column(nullable = false)
     private String password;
 
-    @Column(unique = true, nullable = false)
+    // Benzersizlik, soft-delete ile uyumlu olması için DB seviyesinde
+    // partial unique index ile sağlanır (V1__init.sql). Bkz. soft-delete stratejisi.
+    @Column(nullable = false)
     private String email;
 
     @Column(nullable = false)

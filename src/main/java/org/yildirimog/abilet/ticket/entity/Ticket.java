@@ -2,6 +2,7 @@ package org.yildirimog.abilet.ticket.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.SQLRestriction;
 import org.yildirimog.abilet.common.entity.BaseEntity;
 import org.yildirimog.abilet.event.entity.Event;
 import org.yildirimog.abilet.ticket.enums.TicketStatus;
@@ -11,6 +12,8 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "tickets")
+@SQLRestriction("deleted_at IS NULL")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -30,7 +33,7 @@ public class Ticket extends BaseEntity {
     @JoinColumn(nullable = false)
     private Event event;
 
-    @Column(nullable = false)
+    @Column(nullable = false, precision = 12, scale = 2)
     private BigDecimal price;
 
     private String seatNo;

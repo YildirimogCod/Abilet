@@ -2,12 +2,15 @@ package org.yildirimog.abilet.event.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.SQLRestriction;
 import org.yildirimog.abilet.category.entity.Category;
 import org.yildirimog.abilet.common.entity.BaseEntity;
 
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "events")
+@SQLRestriction("deleted_at IS NULL")
 @Getter
 @Setter
 @AllArgsConstructor
