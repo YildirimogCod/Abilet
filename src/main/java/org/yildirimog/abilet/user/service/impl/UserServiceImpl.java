@@ -29,22 +29,22 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserResponseDto getById(Long id) {
         User user = userRepository.findById(id).orElseThrow(()->new UserNotFoundException(id));
-        return userMapper.userToUserResponseDto(user);
+        return userMapper.toDto(user);
     }
 
     @Transactional
     @Override
     public UserResponseDto update(Long id, UserUpdateDto userUpdateDto) {
         User user = userRepository.findById(id).orElseThrow(()->new UserNotFoundException(id));
-        userMapper.updateUserFromDto(user, userUpdateDto);
-        return userMapper.userToUserResponseDto(user);
+        userMapper.updateEntity(user, userUpdateDto);
+        return userMapper.toDto(user);
     }
 
     @Override
     @Transactional(readOnly = true)
     public Page<UserResponseDto> getAllUsers(Pageable pageable) {
        return userRepository.findAll(pageable)
-               .map(userMapper::userToUserResponseDto);
+               .map(userMapper::toDto);
     }
 
 

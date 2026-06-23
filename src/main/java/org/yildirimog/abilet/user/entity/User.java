@@ -2,6 +2,7 @@ package org.yildirimog.abilet.user.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.SQLRestriction;
 import org.yildirimog.abilet.common.entity.BaseEntity;
 import org.yildirimog.abilet.user.enums.Role;
@@ -16,12 +17,8 @@ import java.time.Period;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-@EqualsAndHashCode(of = "id")
+@SuperBuilder
 public class User extends BaseEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
     @Column(nullable = false)
     private String firstName;
